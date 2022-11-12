@@ -108,6 +108,20 @@ func (mr *MockConnectionMockRecorder) Context() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Context", reflect.TypeOf((*MockConnection)(nil).Context))
 }
 
+// GetMaxBandwidth mocks base method.
+func (m *MockConnection) GetMaxBandwidth() uint64 {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetMaxBandwidth")
+	ret0, _ := ret[0].(uint64)
+	return ret0
+}
+
+// GetMaxBandwidth indicates an expected call of GetMaxBandwidth.
+func (mr *MockConnectionMockRecorder) GetMaxBandwidth() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetMaxBandwidth", reflect.TypeOf((*MockConnection)(nil).GetMaxBandwidth))
+}
+
 // LocalAddr mocks base method.
 func (m *MockConnection) LocalAddr() net.Addr {
 	m.ctrl.T.Helper()
@@ -223,4 +237,16 @@ func (m *MockConnection) SendMessage(arg0 []byte) error {
 func (mr *MockConnectionMockRecorder) SendMessage(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SendMessage", reflect.TypeOf((*MockConnection)(nil).SendMessage), arg0)
+}
+
+// SetMaxBandwidth mocks base method.
+func (m *MockConnection) SetMaxBandwidth(arg0 uint64) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "SetMaxBandwidth", arg0)
+}
+
+// SetMaxBandwidth indicates an expected call of SetMaxBandwidth.
+func (mr *MockConnectionMockRecorder) SetMaxBandwidth(arg0 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SetMaxBandwidth", reflect.TypeOf((*MockConnection)(nil).SetMaxBandwidth), arg0)
 }

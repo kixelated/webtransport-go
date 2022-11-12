@@ -174,7 +174,7 @@ func (s *Server) Upgrade(w http.ResponseWriter, r *http.Request) (*Session, erro
 		return nil, errors.New("failed to hijack")
 	}
 	return s.conns.AddSession(
-		hijacker.StreamCreator(),
+		hijacker.Connection(),
 		sID,
 		r.Body.(http3.HTTPStreamer).HTTPStream(),
 	), nil

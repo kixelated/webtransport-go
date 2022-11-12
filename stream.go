@@ -20,6 +20,8 @@ type SendStream interface {
 	CancelWrite(ErrorCode)
 
 	SetWriteDeadline(time.Time) error
+
+	SetPriority(int)
 }
 
 type ReceiveStream interface {
@@ -169,6 +171,10 @@ func (s *stream) SetDeadline(t time.Time) error {
 	// TODO: implement
 	return nil
 	// return maybeConvertStreamError(s.SendStream.SetDeadline(t))
+}
+
+func (s *sendStream) SetPriority(p int) {
+	s.str.SetPriority(p)
 }
 
 func maybeConvertStreamError(err error) error {

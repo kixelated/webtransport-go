@@ -21,6 +21,8 @@ type SendStream interface {
 	CancelWrite(StreamErrorCode)
 
 	SetWriteDeadline(time.Time) error
+
+	SetPriority(int)
 }
 
 type ReceiveStream interface {
@@ -186,6 +188,10 @@ func (s *stream) SetDeadline(t time.Time) error {
 
 func (s *stream) StreamID() quic.StreamID {
 	return s.receiveStream.StreamID()
+}
+
+func (s *sendStream) SetPriority(p int) {
+	s.str.SetPriority(p)
 }
 
 func maybeConvertStreamError(err error) error {

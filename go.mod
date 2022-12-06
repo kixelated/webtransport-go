@@ -1,10 +1,11 @@
-module github.com/marten-seemann/webtransport-go
+module github.com/kixelated/webtransport-go
 
 go 1.18
 
 require (
 	github.com/golang/mock v1.6.0
-	github.com/lucas-clemente/quic-go v0.31.0
+	github.com/kixelated/quic-go v1.31.0
+	github.com/marten-seemann/webtransport-go v0.4.1
 	github.com/stretchr/testify v1.8.0
 )
 
@@ -13,6 +14,7 @@ require (
 	github.com/francoispqt/gojay v1.2.13 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 // indirect
 	github.com/google/pprof v0.0.0-20210407192527-94a9f03dee38 // indirect
+	github.com/lucas-clemente/quic-go v0.31.0 // indirect
 	github.com/marten-seemann/qpack v0.3.0 // indirect
 	github.com/marten-seemann/qtls-go1-18 v0.1.3 // indirect
 	github.com/marten-seemann/qtls-go1-19 v0.1.1 // indirect

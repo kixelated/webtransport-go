@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/marten-seemann/webtransport-go"
+	"github.com/kixelated/webtransport-go"
 
 	"github.com/kixelated/quic-go"
 	"github.com/kixelated/quic-go/http3"

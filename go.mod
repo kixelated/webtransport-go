@@ -5,7 +5,6 @@ go 1.18
 require (
 	github.com/golang/mock v1.6.0
 	github.com/kixelated/quic-go v1.31.0
-	github.com/marten-seemann/webtransport-go v0.4.1
 	github.com/stretchr/testify v1.8.0
 )
 

@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-//go:generate sh -c "mockgen -package webtransport -destination mock_stream_creator_test.go github.com/kixelated/quic-go/http3 StreamCreator"
-//go:generate sh -c "mockgen -package webtransport -destination mock_stream_test.go github.com/kixelated/quic-go Stream && cat mock_stream_test.go | sed s@protocol\\.StreamID@quic.StreamID@g | sed s@qerr\\.StreamErrorCode@quic.StreamErrorCode@g > tmp.go && mv tmp.go mock_stream_test.go && goimports -w mock_stream_test.go"
+//go:generate sh -c "go run github.com/golang/mock/mockgen -package webtransport -destination mock_connection_test.go github.com/kixelated/quic-go Connection && sed -i '' -e 's@qerr.ApplicationErrorCode@quic.ApplicationErrorCode@g' mock_connection_test.go && goimports -w mock_connection_test.go"
+//go:generate sh -c "go run github.com/golang/mock/mockgen -package webtransport -destination mock_stream_test.go github.com/kixelated/quic-go Stream && sed -i '' -e 's@protocol.StreamID@quic.StreamID@g' -e 's@qerr.StreamErrorCode@quic.StreamErrorCode@g' mock_stream_test.go && goimports -w mock_stream_test.go"
 
 type mockRequestStream struct {
 	*MockStream
@@ -40,7 +40,7 @@ func TestCloseStreamsOnClose(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockSess := NewMockStreamCreator(ctrl)
+	mockSess := NewMockConnection(ctrl)
 	mockSess.EXPECT().Context().Return(context.WithValue(context.Background(), quic.ConnectionTracingKey, uint64(1337)))
 	sess := newSession(42, mockSess, newMockRequestStream(ctrl))
 
@@ -65,7 +65,7 @@ func TestAddStreamAfterSessionClose(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	mockSess := NewMockStreamCreator(ctrl)
+	mockSess := NewMockConnection(ctrl)
 	mockSess.EXPECT().Context().Return(context.WithValue(context.Background(), quic.ConnectionTracingKey, uint64(1337)))
 
 	sess := newSession(42, mockSess, newMockRequestStream(ctrl))

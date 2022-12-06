@@ -68,7 +68,7 @@ func newWebTransportRequest(t *testing.T, addr string) *http.Request {
 	}
 }
 
-func createStreamAndWrite(t *testing.T, qconn http3.StreamCreator, sessionID uint64, data []byte) quic.Stream {
+func createStreamAndWrite(t *testing.T, qconn quic.Connection, sessionID uint64, data []byte) quic.Stream {
 	t.Helper()
 	str, err := qconn.OpenStream()
 	require.NoError(t, err)
@@ -106,7 +106,7 @@ func TestServerReorderedUpgradeRequest(t *testing.T) {
 	require.NoError(t, err)
 	rsp, err := rt.RoundTrip(req)
 	require.NoError(t, err)
-	qconn := rsp.Body.(http3.Hijacker).StreamCreator()
+	qconn := rsp.Body.(http3.Hijacker).Connection()
 	// Open a new stream for a WebTransport session we'll establish later. Stream ID: 4.
 	createStreamAndWrite(t, qconn, 8, []byte("foobar"))
 
@@ -166,7 +166,7 @@ func TestServerReorderedUpgradeRequestTimeout(t *testing.T) {
 	require.NoError(t, err)
 	rsp, err := rt.RoundTrip(req)
 	require.NoError(t, err)
-	qconn := rsp.Body.(http3.Hijacker).StreamCreator()
+	qconn := rsp.Body.(http3.Hijacker).Connection()
 	// Open a new stream for a WebTransport session we'll establish later. Stream ID: 4.
 	str := createStreamAndWrite(t, qconn, 8, []byte("foobar"))
 
@@ -229,7 +229,7 @@ func TestServerReorderedMultipleStreams(t *testing.T) {
 	require.NoError(t, err)
 	rsp, err := rt.RoundTrip(req)
 	require.NoError(t, err)
-	qconn := rsp.Body.(http3.Hijacker).StreamCreator()
+	qconn := rsp.Body.(http3.Hijacker).Connection()
 	start := time.Now()
 	// Open a new stream for a WebTransport session we'll establish later. Stream ID: 4.
 	str1 := createStreamAndWrite(t, qconn, 12, []byte("foobar"))
